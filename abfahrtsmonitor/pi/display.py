@@ -27,7 +27,7 @@ def getMac(ifname):
 def getActionUrl(action):
 	mac = getMac('eth0')
 	url = "http://itract.hs-woe.de/displays/?mac=%s&action=%s" % (mac,action)
-	#url = "http://192.168.250.16/swwv/displays/?mac=%s&action=%s" % (mac,action)
+	url = "http://192.168.250.16/swwv/displays/?mac=%s&action=%s" % (mac,action)
 	return url
 
 def getDBCursor():
@@ -39,6 +39,12 @@ def getData(url):
 	content = f.read()
 	f.close()
 	return json.loads(content)
+
+def setForceUpdateDone():
+    	print "Force Update Done"
+    	url = getActionUrl('forceupdatedone')
+    	getData(url)
+	
 
 def getDepartureData():
 	print "Departures"
@@ -55,12 +61,13 @@ def getDepartureData():
 		db.execute(sql)
 	db.execute("update departures set infotext = NULL where infotext = ' ';")
 	db.execute("update departures set trip_id = NULL where trip_id = ' ';")
+
+
 	
 def getNotificationData():
 	print "Notificstions"
 	url = getActionUrl('notifications')
 	data = getData(url)
-	print data
 	db = getDBCursor()
 	db.execute("truncate notification")
 	for notification in data['notifications']:
@@ -74,6 +81,12 @@ def getSettingsData():
 	db = getDBCursor()
 	sql = "update settings set stopname = '%s', textsize = '%s',start = '%s',scrollamount = '%s'" % (data['stopname'],data['textsize'],data['start'],data['scrollamount'])
 	db.execute(sql)
+        if data['forceupdate'] == 1:
+            print "Forceupdate"
+            getDepartureData()
+            getNotificationData()
+            setForceUpdateDone()
+
 	
 
 if options.optSettings:

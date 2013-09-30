@@ -17,13 +17,14 @@ class Display extends Obj{
     private $standort;
     private $heartbeat;
     private $stopname;
+    private $forceupdate;
 
 
 
 
     protected  function read(){
         $mysql = new MySQL();
-        $mysql->query("select mac,textsize,scrollamount,start,notifications,standort,heartbeat,stopname,name from displays where id = ".$this->id);
+        $mysql->query("select mac,textsize,scrollamount,start,notifications,standort,heartbeat,stopname,name,forceupdate from displays where id = ".$this->id);
         $row = $mysql->fetchRow();
         $this->mac = $row['mac'];
         $this->start = $row['start'];
@@ -34,6 +35,11 @@ class Display extends Obj{
         $this->heartbeat = $row['heartbeat'];
         $this->stopname = utf8_encode($row['stopname']);
         $this->scrollamount = $row['scrollamount'];
+
+        if($row['forceupdate'] == 0)
+            $this->forceupdate = 0;
+        else
+            $this->forceupdate = 1;
 
         $mysql->query("select stop_id from ver_displays_stops where display_id = ".$this->id);
         while($row = $mysql->fetchRow()){
@@ -76,6 +82,25 @@ class Display extends Obj{
 
     public function get_notifications(){
         return $this->notifications;
+    }
+
+    public function get_forceupdate(){
+        return $this->forceupdate;
+    }
+
+    public function set_forceupdate_off(){
+        $this->forceupdate = 0;
+        $this->set_forceupdate();
+    }
+
+    public function set_forceupdate_on(){
+        $this->forceupdate = 1;
+        $this->set_forceupdate();
+    }
+
+    private function set_forceupdate(){
+        $mysql = new MySQL();
+        $mysql->query("update displays set forceupdate = ".$this->forceupdate." where id = ".$this->id);
     }
 
     public function uebersicht(){
