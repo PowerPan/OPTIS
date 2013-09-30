@@ -1,0 +1,5 @@
+route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url,route_color,route_text_color
+1313,SWE,501,Linie 501,,3,,,
+1314,SWE,502,Linie 502,,3,,,
+1315,SWE,503,Linie 503,,3,,,
+1316,SWE,504,Linie 504,,3,,,

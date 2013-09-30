@@ -1,0 +1,311 @@
+body, html {
+    height: 100%;
+}
+
+html {
+    /*background-image: -webkit-linear-gradient(#12436C 0%, #9FBFD2 100%);
+    background-image: -moz-linear-gradient(#12436C 0%, #9FBFD2 100%);
+    background-image: -o-linear-gradient(#12436C 0%, #9FBFD2 100%);
+    background-image: linear-gradient(#12436C 0%, #9FBFD2 100%);*/
+    background-color: #276da1;
+    background-attachment:fixed;
+}
+
+body {
+
+    font-family: arial;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: white;
+    margin: 0;
+    width: 100%;
+}
+#wrapper {
+    margin: auto; /* Div soll zentriert werden */
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    top:80px;
+    width: -moz-calc(100% - 20px);
+    width: -webkit-calc(100% - 20px);
+    width: calc(100% - 20px);
+    height: -moz-calc(100% -90px);
+    height: -webkit-calc(100% - 90px);
+    height: calc(100% - 90px);
+}
+#navigation {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    height:80px;
+}
+
+#navigationwrapper{
+
+    position: fixed;
+
+    width: 100%;
+    z-index: 20;
+    background-image: -webkit-linear-gradient(#12436C 0%, #205076 100%);
+    background-image: -moz-linear-gradient(#12436C 0%, #205076 100%);
+    background-image: -o-linear-gradient(#12436C 0%, #205076 100%);
+    background-image: linear-gradient(#12436C 0%, #205076 100%);
+
+}
+
+#navigation-title{
+    margin-top: 8px;
+    font-size: 22px;
+    padding-right: 30px;
+    float: left;
+}
+
+#navigation-title img{
+    height: 50px;
+}
+
+#navigation-item{
+    border-left: 1px solid white;
+    float: left;
+    font-size: 16px;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    width: 100px;
+    text-align: center;
+    display: block;
+}
+
+#navigation-item:hover{
+    color: gold;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #9FBFD2;
+}
+
+#navigation-clock{
+    display: block;
+    float: right;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+#content{
+    padding-left: 10px;
+    padding-right: 10px;
+    height: -moz-calc(100% - 110px);
+    height: -webkit-calc(100% - 110px);
+    height: calc(100% - 110px);
+}
+
+
+h1{
+    color:white;
+    font-size:40px;
+    margin: 0;
+}
+
+.uhrzeit {
+    font-size: 45px;
+    margin-left:15px;
+    font-weight: bolder;
+}
+
+a {
+    color: gold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tabellefahrplan{
+    position: relative;
+    left: -30px;
+    width: -moz-calc(100% + 60px);
+    width: -webkit-calc(100% + 60px);
+    width: calc(100% + 60px);
+    /*width: 100%;*/
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.fahrplanzeile{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+tr.fahrplanzeile td{
+    border-bottom:1pt solid white;
+
+
+}
+
+.headerzeile{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight:bolder;
+}
+
+.zeile_linie{
+
+    width: 220px;
+    vertical-align: middle;
+    padding-left:30px;
+    word-wrap: normal;
+}
+
+.zeile_ziel{
+    width: 100%;
+    height: 2em;
+    vertical-align: middle;
+    text-indent: 20px;
+}
+
+.zeile_abfahrt{
+
+    min-width: 200px;
+
+    text-align:left;
+    vertical-align: middle;
+}
+
+.header_zeile_linie{
+
+    border-top: 3pt solid white;
+    border-bottom:3pt solid white;
+    width: 220px;
+    text-indent: 30px;
+}
+
+.header_zeile_ziel{
+
+    border-top: 3pt solid white;
+    border-bottom:3pt solid white;
+    width: 100%;
+    text-indent: 20px;
+}
+
+.header_zeile_abfahrt{
+
+    border-top: 3pt solid white;
+    border-bottom:3pt solid white;
+    min-width: 200px;
+
+    text-align:left;
+}
+
+.infotext{
+    color: gold;
+    font-size: 0.5em;
+}
+
+#notification_marquee{
+    color: gold;
+    height: 2em;
+    top: 0.3em;
+    position: relative;
+}
+
+#bus{
+    z-index: 100;
+    bottom: 30px;
+    border: 1px;
+    margin: auto auto;
+    text-align:center;
+    padding-top:20px;
+    position: absolute;
+    left: -1000px;
+    visibility: visible;
+}
+
+#notification{
+    white-space:nowrap;
+}
+
+
+span.dropt:hover {
+    text-decoration: none;
+    color: goldenrod;
+    z-index: 6;
+    cursor: pointer;
+}
+
+span.dropt span {
+    position: absolute;
+    left: -9999px;
+    margin: 40px 0 0 0px;
+    padding: 3px 3px 3px 3px;
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+    z-index: 6;
+    color: black;
+    font-size: 10px;
+}
+
+.notification-overview-table{
+    width: 100%;
+    font-size: 16px;
+}
+.display-overview-table{
+    width: 100%;
+    font-size: 12px;
+}
+
+.notification-overview-table-collum-von{
+    min-width: 150px;
+}
+
+.notification-overview-table-collum-bis{
+    min-width: 150px;
+}
+
+span.dropt:hover span {
+    left: 450px;
+    background: #ffffff;
+}
+
+span.dropt span {
+    position: absolute;
+    left: -9999px;
+    margin: 40px 0 0 0px;
+    padding: 3px 3px 3px 3px;
+    border-style:solid;
+    border-color:black;
+    border-width:1px;
+}
+
+span.dropt:hover span {
+    margin: 20px 0 0 170px;
+    background: #ffffff;
+    z-index:6;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+
+#map {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: -moz-calc(100% - 40px);
+    height: -webkit-calc(100% - 40px);
+    height: calc(100% - 40px);
+}

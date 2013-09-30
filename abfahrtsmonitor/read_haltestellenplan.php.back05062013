@@ -1,0 +1,112 @@
+<?php
+header('Content-Type: text/html; charset=iso-8859-1'); 
+include_once("classMySQL.php");
+$mysql = new MySQL();
+$stop_id = $_GET['stop_id'];
+$rows = $_GET['rows'];
+
+//Check auf Parentstation
+$query = "select stop_id from gtfs_stops where parent_station = ".$stop_id."";
+//echo $query;
+$mysql->query($query);
+//echo $mysql->count();
+if($mysql->count() > 0){
+	$stop_id = Array();
+	while($row = $mysql->fetchRow())
+		$stop_id[] = $row['stop_id'];
+}
+//print_r($stop_id);
+
+
+if($rows == "")
+	$rows = 5;
+$query1="SELECT
+	st.departure_time,
+	t.trip_headsign,
+	t.trip_id,
+	r.route_short_name
+from
+	gtfs_stops s
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id)
+	left join gtfs_trips as t on (t.trip_id = st.trip_id)
+	left join gtfs_routes as r on (t.route_id = r.route_id)
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id)
+    left join gtfs_calendar as c on (c.service_id = t.service_id)
+
+where ";
+if(is_array($stop_id))
+    $stop_id = implode(',',$stop_id);
+
+    $query1 .= "s.stop_id in (".$stop_id.")";
+
+$query2 ="	and (
+    		        (
+            	        st.departure_time >= CURTIME()
+                        and
+                            (
+                		      (
+                			        c.".strtolower(date('l'))." = 1
+                			        and cd.date = CURDATE()
+							        and cd.exception_type = 1
+                		      )
+                              xor (
+                    	        cd.date = CURDATE()
+                    	        and cd.exception_type = 1
+                    	        or c.".strtolower(date('l'))." = 2
+                              )
+              	            )
+              	    )
+              	 )";
+
+$query3 ="		    and (select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) not in (".$stop_id.")
+					order by cd.date,st.departure_time
+					limit ".$rows."
+					";
+
+$query = $query1.$query2.$query3;
+$mysql->query($query);
+//Wenn abdens nicht mehr genug Abfahrten vorhanden sind sollen die nächsten Abfharten des Tages mit rausgesucht werden.
+//Dieses wird gemacht, wenn die Ergebnisszeilen des SQL's kleiner sind als die vom Client geforderten Zeilen
+if($mysql->count() < $rows){
+    $query2 = " and (
+                    (
+                        st.departure_time >= CURTIME()
+                            and (
+                            (
+                                c.".strtolower(date('l'))." = 1
+                                    and cd.date = CURDATE()
+                                    and cd.exception_type = 1
+                            )
+                                xor (
+                                    cd.date = CURDATE()
+                                    and cd.exception_type = 1
+                                    or c.".strtolower(date('l'))." = 2
+                            )
+                        )
+                            or (
+                        (
+                            c.".strtolower(date('l',time()+86400))  ." = 1
+                                and cd.date = CURDATE() + INTERVAL 1 DAY
+                        and cd.exception_type = 1
+                                            )
+                                        or (
+                    cd.date = CURDATE() + INTERVAL 1 DAY
+                        and cd.exception_type = 1
+                            and c.".strtolower(date('l',time()+86400))." = 2
+                                        )
+                                     )
+                                )
+                            ) ";
+    $query = $query1.$query2.$query3;
+    $mysql->query($query);
+}
+
+//echo $query;
+echo '{ "fahrplan": [';
+while($row = $mysql->fetchRow()){
+	$string[] = '{ "trip_id": "'.$row['trip_id'].'", "route_short_name": "'.$row['route_short_name'].'", "trip_headsign": "'.str_replace("Wilhelmshaven ","",$row['trip_headsign']).'", "departure_time": "'.substr($row['departure_time'],0,5).'" }';	
+	//print_r($row);
+}
+echo @implode(",",$string);
+echo ']}';
+?>

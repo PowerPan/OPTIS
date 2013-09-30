@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>swwv_bus</string>
+			<key>host</key>
+			<string>localhost</string>
+			<key>kcid</key>
+			<string>3200302219212386688</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPSocketConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentFilter</key>
+			<dict>
+				<key>filterComparison</key>
+				<string>=</string>
+				<key>filterComparisonTag</key>
+				<integer>0</integer>
+				<key>filterField</key>
+				<string>trip_id</string>
+				<key>filterValue</key>
+				<string>12590133</string>
+				<key>firstBetweenField</key>
+				<string></string>
+				<key>menuLabel</key>
+				<string>`trip_id` = '12590133'</string>
+				<key>secondBetweenField</key>
+				<string></string>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJX
+			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
+			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
+			ZXhTZXTSFwsYGVxOU1JhbmdlQ291bnQQAIAG0hscHR5aJGNsYXNz
+			bmFtZVgkY2xhc3Nlc1pOU0luZGV4U2V0oh8gWk5TSW5kZXhTZXRY
+			TlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVk
+			QXJjaGl2ZXLRJidUZGF0YYABAAgAEQAaACMALQAyADcAQABGAE0A
+			VQBgAGcAagBsAG4AcQBzAHUAdwB8AIEAoQCmALMAtQC3ALwAxwDQ
+			ANsA3gDpAPIA9wEEAQcBGQEcASEAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1026, 602}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	
+		
+order by 
+	cd.date
+	,st.departure_time limit 400;
+	
+	
+	
+SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) 
+
+and ( ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) xor ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5;</string>
+			<key>table</key>
+			<string>gtfs_trips</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>253</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	
+		
+order by 
+	cd.date
+	,st.departure_time limit 400;
+SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) 
+
+and ( ( cd.date ='20130426' )  or ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) 
+
+and ( ( cd.date ='20130426' )  xor ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) and ( ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) xor ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) and ( ( cd.date = '20130425' ) or ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) and ( ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) or ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) and ( ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) or ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	
+		
+order by 
+	cd.date
+	,st.departure_time limit 400;
+SELECT st.departure_time, t.trip_headsign, t.trip_id, r.route_short_name from gtfs_stops s left join gtfs_stop_times as st on (st.stop_id = s.stop_id) left join gtfs_trips as t on (t.trip_id = st.trip_id) left join gtfs_routes as r on (t.route_id = r.route_id) left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) where ( s.stop_id = '221312' or s.stop_id = '321312' ) and ( ( st.departure_time &gt;= NOW() and cd.date = '20130425' ) or ( cd.date ='20130426' ) ) and cd.exception_type = 1 and st.stop_sequence &lt; (select max(gst.stop_sequence)max_stop_sequence from gtfs_stop_times gst where gst.trip_id = t.trip_id) order by cd.date,st.departure_time limit 5</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	
+		
+order by 
+	cd.date
+	,st.departure_time limit 400</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	
+		
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '03:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 2425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '05:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 2425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= '05:00:00' and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 3425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 3425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 2425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 100</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 3425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 20</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = 2425
+	)
+order by 
+	cd.date
+	,st.departure_time limit 20</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = (2425 or 3425)
+	)
+order by 
+	cd.date
+	,st.departure_time limit 20</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) = (2425 xor 3425)
+	)
+order by 
+	cd.date
+	,st.departure_time limit 20</string>
+		<string>SELECT 
+	st.departure_time
+	, t.trip_headsign
+	, t.trip_id
+	, r.route_short_name
+	,cd.date
+	,cd.`exception_type`
+	,(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1)endstop
+from 
+	gtfs_stops s 
+	left join gtfs_stop_times as st on (st.stop_id = s.stop_id) 
+	left join gtfs_trips as t on (t.trip_id = st.trip_id) 
+	left join gtfs_routes as r on (t.route_id = r.route_id) 
+	left join gtfs_calendar_dates as cd on (cd.service_id = t.service_id) 
+where 
+	( s.stop_id = '3425' or s.stop_id = '2425' ) 
+	and ( ( st.departure_time &gt;= NOW() and cd.date = '20130424' ) or ( cd.date ='20130425' ) ) 
+	and (
+		(select gst2.stop_id from gtfs_stop_times gst2 where gst2.trip_id = t.trip_id order by gst2.stop_sequence desc limit 1) not like (2425 xor 3425)
+	)
+order by 
+	cd.date
+	,st.departure_time limit 20</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.1.44</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
