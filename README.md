@@ -18,7 +18,7 @@ The First is the hardest one ;) When the First Display is runnig you can copy th
 Download the actuallay Debian/Raspian for Raspberry. 
 You will find it here: http://www.raspberrypi.org/downloads
 
-After the First Boot we must Install some packages. Open a command Prompt end type:
+After the First Boot we must Install some packages. Open a command Prompt and enter the following commands:
 ```
 sudo apt-get update
 sudo apt-get install fbi chromium x11-xserver-utils unclutter mysql-server mysql-client python-mysqldb php5 php5-mysql libapache2-mod-php5
