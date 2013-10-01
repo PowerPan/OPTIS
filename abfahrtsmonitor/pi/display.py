@@ -79,7 +79,7 @@ def getSettingsData():
 	url = getActionUrl('settings')
 	data = getData(url)
 	db = getDBCursor()
-	sql = "update settings set stopname = '%s', textsize = '%s',start = '%s',scrollamount = '%s'" % (data['stopname'],data['textsize'],data['start'],data['scrollamount'])
+	sql = "update settings set stopname = '%s', textsize = '%s',start = '%s',scrollamount = '%s',stop_ids = '%s' " % (data['stopname'],data['textsize'],data['start'],data['scrollamount'],data['stop_ids'])
 	db.execute(sql)
         if data['forceupdate'] == 1:
             print "Forceupdate"

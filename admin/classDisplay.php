@@ -80,6 +80,13 @@ class Display extends Obj{
         return $this->stops;
     }
 
+    public function get_stops_list(){
+        foreach ($this->stops as $stop){
+            $stoplist[] = $stop->get_id();
+        }
+        return implode(",",$stoplist);
+    }
+
     public function get_notifications(){
         return $this->notifications;
     }

@@ -26,6 +26,9 @@ if(isset($_GET['mac'])){
             $json['start'] = $display->get_start();
             $json['scrollamount'] = $display->get_scrollamount();
             $json['stopname'] = $display->get_stopname();
+            $json['forceupdate'] = $display->get_forceupdate();
+            $json['stop_ids'] = $display->get_stops_list();
+            $mysql->query("update displays set last_settings = NOW() where id = ".$display->get_id());
         }
 
         if($action == "departures"){
@@ -37,6 +40,7 @@ if(isset($_GET['mac'])){
             while($row = $mysql->fetchRow()){
                 $json['departures'][] = $row;
             }
+            $mysql->query("update displays set last_departure = NOW() where id = ".$display->get_id());
         }
 
         if($action == "notifications"){
@@ -50,6 +54,12 @@ if(isset($_GET['mac'])){
                     $json['notifications'][] = $row;
                 }
             }
+            $mysql->query("update displays set last_notification = NOW() where id = ".$display->get_id());
+        }
+
+        if($action == "forceupdatedone"){
+            $display->set_forceupdate_off();
+            $json['done'] = "Done";
         }
 
         echo json_encode($json);
