@@ -7,9 +7,18 @@
  * To change this template use File | Settings | File Templates.
  */
 
-$textsize = 20;
-$scrollamount = 4;
+include_once("classMySQL.php");
+$mysql = new MySQL();
+$mysql->query("select stopname,textsize,start,scrollamount,stop_ids from settings");
+$row = $mysql->fetchRow();
+$stopname = $row['stopname'];
+$textsize = $row['textsize'];
+$start = $row['start'];
+$scrollamount = $row['scrollamount'];
+$stop_ids = $row['stop_ids'];
+
 $zeilenhoehe = 2*$textsize + 6;
+
 
 ?>
 <html>
@@ -26,8 +35,6 @@ $zeilenhoehe = 2*$textsize + 6;
                 font-family: arial;
                 font-size: <?php echo $textsize;?>px;
             }
-
-
 
 
 
@@ -212,13 +219,37 @@ $zeilenhoehe = 2*$textsize + 6;
                 $('#headertable').css("margin-bottom",margin_bottom_header_table+"px");
                 $('#headertable').css("margin-top",margin_top_header_table+"px");
 
-                setTimeout("read_fahrplan()",100);
+                setTimeout("read_fahrplan()",1000);
 
             });
 
+            var settings_stopname = "<?php echo $stopname;?>";
+            var settings_textsize= "<?php echo $textsize;?>";
+            var settings_start= "<?php echo $start;?>";
+            var settings_scrollamount= "<?php echo $scrollamount;?>";
+            var settings_stop_ids= "<?php echo $stop_ids;?>";
+
+            function read_settings(){
+                $.getJSON('read.php?type=settings',function(data) {
+                    if(data.stopname != settings_stopname)
+                        location.reload();
+                    if(data.textsize != settings_textsize)
+                        location.reload();
+                    if(data.start != settings_start)
+                        location.reload();
+                    if(data.scrollamount != settings_scrollamount)
+                        location.reload();
+                    if(data.stop_ids != settings_stop_ids)
+                        location.reload();
+
+                });
+            }
+            setInterval('read_settings()',10000);
+            read_settings();
+
             var notification_row = false;
             function read_fahrplan(){
-                $.post('read.php?rows='+zeilen,function(data) {
+                $.post('read.php?type=departures&rows='+zeilen,function(data) {
                     var fahrplanObj = JSON.parse(data);
                     var rows = zeilen;
 
@@ -311,7 +342,7 @@ $zeilenhoehe = 2*$textsize + 6;
         <table id="headertable" border="0">
             <tr>
                 <td id="headerlogo"><img src="swwvvej.png"/> </td>
-                <td id="headername" nowrap>ZOB</td>
+                <td id="headername" nowrap><?php echo $stopname;?></td>
                 <td id="headeruhrzeit">
                     <div id="uhrzeit"></div>
                 </td>
