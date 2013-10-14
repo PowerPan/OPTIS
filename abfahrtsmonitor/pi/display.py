@@ -14,6 +14,7 @@ parser.add_option("-d" , "--departures", action="store_true",dest="optDepartures
 parser.add_option("-s" , "--settings", action="store_true",dest="optSettings", help="Einstellungen auslesen")
 parser.add_option("-n" , "--notifications", action="store_true",dest="optNotifications", help="Notifications auslesen")
 parser.add_option("-r" , "--rows", dest="optRows", help="Rows auf dem Server schreiben",nargs=1,type="int")
+parser.add_option("-f" , "--forecupdate", action="store_true",dest="optForceupdate", help="Forceupdate")
 
 options, arguments = parser.parse_args()
 		
@@ -28,7 +29,7 @@ def getMac(ifname):
 def getActionUrl(action):
 	mac = getMac('eth0')
 	url = "http://itract.hs-woe.de/displays/?mac=%s&action=%s" % (mac,action)
-	url = "http://192.168.250.16/swwv/displays/?mac=%s&action=%s" % (mac,action)
+	#url = "http://192.168.250.16/swwv/displays/?mac=%s&action=%s" % (mac,action)
 	return url
 
 def getDBCursor():
@@ -86,9 +87,9 @@ def getSettingsData():
             setForceUpdateDone()
 
 def writeDisplayRowsToServer():
-    url = getActionUrl('writerows')
-    url = "%s&rows=%s" % (url,options.optRows)
-    data = getData(url)
+	url = getActionUrl('writerows')
+	url = "%s&rows=%s" % (url,options.optRows)
+	data = getData(url)
 
 help = 1
 
@@ -107,6 +108,12 @@ if options.optNotifications:
 if options.optRows:
     help = 0
     writeDisplayRowsToServer()
+
+if options.optForceupdate:
+	getSettingsData()
+	getDepartureData()
+        getNotificationData()
+	help = 0
 
 if help == 1:
     parser.print_help()
