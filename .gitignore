@@ -216,3 +216,4 @@ pip-log.txt
 
 .idea/
 *.DS_STORE
+js/leaflet/locatecontrol
