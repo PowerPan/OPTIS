@@ -75,17 +75,16 @@ if($type == "departures"){
     }
     $json['fahrplan'] = $jsonrow;
 
-    /*
+
     //Ab Hier Message auslesen
-    $query = "select n.text from notification n inner join ver_notification_gtfs_stops as vngs on (n.notification_id = vngs.notification_id) where vngs.stop_id IN (".$stops_id.") and NOW() BETWEEN n.valid_from and n.valid_to group by n.notification_id";
+    $query = "select text from notification where NOW() BETWEEN valid_from and valid_to";
     $mysql->query($query);
     //echo $query;
     while($row = $mysql->fetchRow())
         $notifications[] = utf8_encode(str_replace(" ","&nbsp;",$row['text']));
 
     $json['notifications'] = $notifications;
-    $json['stops'] = $stop_id;
-    -*/
+
     echo json_encode($json);
 
 }
