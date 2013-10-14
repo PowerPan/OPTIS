@@ -38,6 +38,7 @@ if(isset($_GET['mac'])){
             $query = "select date,destination,route,trip_id,infotext from departures where stop_id in (".implode(',',$stops).") and date > NOW()";
             $mysql->query($query);
             while($row = $mysql->fetchRow()){
+
                 $json['departures'][] = $row;
             }
             $mysql->query("update displays set last_departure = NOW() where id = ".$display->get_id());
@@ -60,6 +61,10 @@ if(isset($_GET['mac'])){
         if($action == "forceupdatedone"){
             $display->set_forceupdate_off();
             $json['done'] = "Done";
+        }
+
+        if($action == "writerows"){
+            $display->set_rows($_GET['rows']);
         }
 
         echo json_encode($json);
