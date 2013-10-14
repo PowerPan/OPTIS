@@ -7,6 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+
 include_once("classMySQL.php");
 $mysql = new MySQL();
 $mysql->query("select stopname,textsize,start,scrollamount,stop_ids from settings");
@@ -219,6 +220,10 @@ $zeilenhoehe = 2*$textsize + 6;
                 $('#headertable').css("margin-bottom",margin_bottom_header_table+"px");
                 $('#headertable').css("margin-top",margin_top_header_table+"px");
 
+                $.get('send.php?action=writerows&rows='+zeilen,function(data) {
+
+                });
+
                 setTimeout("read_fahrplan()",1000);
 
             });
@@ -280,56 +285,6 @@ $zeilenhoehe = 2*$textsize + 6;
                         $("#departurerow_ziel_"+j).html(fahrplanObj.fahrplan[i].trip_headsign + "<div class='infotext_ziel'>"+ fahrplanObj.fahrplan[i].infotext+"</div>");
                         $("#departurerow_abfahrt_"+j).html(fahrplanObj.fahrplan[i].departure_time );
                     }
-
-
-                    /*var rows = <?php
-                if(isset($_GET['start'])) //Zweiter Bildschirm
-                    echo $rows-1;
-                else
-                    echo $rows;
-                ?>;
-                    var startrow;
-                    if(fahrplanObj.notifications){
-                        rows--;
-                        startrow = 0;
-                        <?php
-                            if(isset($_GET['start'])){ //Zweiter Bildschirm
-                                ?>
-                        //$("#fahrplan_zeile_"+i).remove();
-                        <?php
-                    }
-                ?>
-                    }
-                    else{
-                        <?php
-                        if(isset($_GET['start'])) //Zweiter Bildschirm
-                            echo "startrow = 1;";
-                        else
-                            echo "startrow = 0;";
-                        ?>;
-
-                    }
-
-
-                    for(i = 0, j = startrow ; i < rows ; i++, j++)
-                        $("#fahrplan_zeile_"+i).html("<td class='zeile_linie'>"+ fahrplanObj.fahrplan[j].route_short_name +"</td><td class='zeile_ziel'>"+ fahrplanObj.fahrplan[j].trip_headsign + "<br><div class='infotext'>"+ fahrplanObj.fahrplan[j].infotext+"</div></td><td class='zeile_abfahrt' valign='top'>"+ fahrplanObj.fahrplan[j].departure_time + "</td>");
-
-                    if(!notification_row && fahrplanObj.notifications){
-                        $("#fahrplan_zeile_"+rows).html("<td valign='middle' colspan='3' style='max-width: "+((screen.width)-60)+"px; vertical-align: middle;'><marquee scrollamount='<?php echo $scrollamount;?>'><div id='notification_marquee'>&nbsp;</div></marquee></td>");
-                        notification_row = true;
-                    }
-
-                    if(fahrplanObj.notifications){
-                        var notification = new Array();
-                        for(i = 0;i < fahrplanObj.notifications.length;i++)
-                            notification.push(fahrplanObj.notifications[i]);
-                        notification_queue = notification.join('&nbsp;+++&nbsp;');
-                        $("#notification_marquee").html(notification_queue);
-                    }
-
-                    if(notification_row && !fahrplanObj.notifications)
-                        notification_row = false;
-                        */
 
                     setTimeout("read_fahrplan()",5000);
                 })

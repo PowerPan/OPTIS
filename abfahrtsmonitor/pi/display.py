@@ -13,6 +13,7 @@ parser = OptionParser ("display.py [Optionen] Op")
 parser.add_option("-d" , "--departures", action="store_true",dest="optDepartures", help="Abfahrten auslesen")
 parser.add_option("-s" , "--settings", action="store_true",dest="optSettings", help="Einstellungen auslesen")
 parser.add_option("-n" , "--notifications", action="store_true",dest="optNotifications", help="Notifications auslesen")
+parser.add_option("-r" , "--rows", dest="optRows", help="Rows auf dem Server schreiben",nargs=1,type="int")
 
 options, arguments = parser.parse_args()
 		
@@ -41,10 +42,9 @@ def getData(url):
 	return json.loads(content)
 
 def setForceUpdateDone():
-    	print "Force Update Done"
-    	url = getActionUrl('forceupdatedone')
-    	getData(url)
-	
+    print "Force Update Done"
+    url = getActionUrl('forceupdatedone')
+    getData(url)
 
 def getDepartureData():
 	print "Departures"
@@ -62,8 +62,6 @@ def getDepartureData():
 	db.execute("update departures set infotext = NULL where infotext = ' ';")
 	db.execute("update departures set trip_id = NULL where trip_id = ' ';")
 
-
-	
 def getNotificationData():
 	print "Notificstions"
 	url = getActionUrl('notifications')
@@ -87,20 +85,33 @@ def getSettingsData():
             getNotificationData()
             setForceUpdateDone()
 
-	
+def writeDisplayRowsToServer():
+    url = getActionUrl('writerows')
+    url = "%s&rows=%s" % (url,options.optRows)
+    data = getData(url)
+
+help = 1
 
 if options.optSettings:
-	getSettingsData()
+    help = 0
+    getSettingsData()
 
 if options.optDepartures:
-	getDepartureData()
+    help = 0
+    getDepartureData()
 
 if options.optNotifications:
-	getNotificationData()
-		
+    help = 0
+    getNotificationData()
+
+if options.optRows:
+    help = 0
+    writeDisplayRowsToServer()
+
+if help == 1:
+    parser.print_help()
 
 
-#getSettingsData()
 
 
 
