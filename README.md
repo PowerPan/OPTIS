@@ -72,3 +72,17 @@ Add the following lines zo the crontab
 0 1,13 * * * /home/pi/display.py -d
 */5 * * * * /home/pi/display.py -n
 ```
+
+Edit the autostart file
+sudo vi /etc/xdg/lxsession/LXDE/autostart
+```
+@lxpanel --profile LXDE
+@pcmanfm --desktop --profile LXDE
+@unclutter
+@chromium --kiosk --incognito "http://localhost"
+@xset s off
+@xset -dpms
+@xset s noblank
+#@xscreensaver -no-splash
+
+```
