@@ -35,6 +35,7 @@ wget https://raw.github.com/PowerPan/OPTIS/master/abfahrtsmonitor/pi/index.php
 wget https://github.com/PowerPan/OPTIS/raw/master/abfahrtsmonitor/pi/jquery-2.0.3.min.js
 wget https://github.com/PowerPan/OPTIS/raw/master/abfahrtsmonitor/pi/jquery-2.0.3.min.map
 wget https://github.com/PowerPan/OPTIS/raw/master/abfahrtsmonitor/pi/read.php
+wget https://github.com/PowerPan/OPTIS/raw/master/abfahrtsmonitor/pi/send.php
 wget https://github.com/PowerPan/OPTIS/raw/master/abfahrtsmonitor/pi/swwvvej.png
 ```
 
@@ -60,4 +61,14 @@ chmod +x display.py
 ./display.py -s
 ```
 
+No we add the Cronjobs to the crontab
+```
+crontab -e
+```
 
+Add the following lines zo the crontab
+```
+*/1 * * * * /home/pi/display.py -s
+0 1,13 * * * /home/pi/display.py -d
+*/5 * * * * /home/pi/display.py -n
+```
