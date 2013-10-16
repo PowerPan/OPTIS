@@ -20,6 +20,12 @@ The Best Way is, to Create a Cronjob that runs every night, after your PI's get 
 
 Create a Cronjob lik this. Be carefull the Path to your Script can distinguish.
 In this Example the Pi gets the Data automaticly every day at 1 and 13 o'clock. Ok let us run the cronjob every night at 2 o'clock.
+
+You can edit your Crontab with:
+```
+crontab -e
+```
+Now the default Editor opens and you can add the following statement:
 ```
 0 2 * * * /usr/bin/php /srv/www/htdocs/gtfs_import/departures.php
 ```
