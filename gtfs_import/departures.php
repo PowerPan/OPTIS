@@ -7,8 +7,16 @@
  * To change this template use File | Settings | File Templates.
  */
 //set_time_limit(5000);
-include_once("../classMySQL.php");
-include_once("function.php");
+include_relative("../classMySQL.php");
+include_relative("function.php");
+function include_relative($file)
+{
+    $bt = debug_backtrace();
+    $old = getcwd();
+    chdir(dirname($bt[0]['file']));
+    include($file);
+    chdir($old);
+}
 set_time_limit(5000);
 
 $today = date('Y-m-d');
