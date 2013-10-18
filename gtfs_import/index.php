@@ -126,6 +126,14 @@
             document.getElementById('data').innerHTML = document.getElementById('data').innerHTML + "Import Trips:" + "<br>";
             $.post('gtfs_import_trips.php?delete=' + delete_old_data,function(data) {
                 document.getElementById('data').innerHTML = document.getElementById('data').innerHTML + data + "<br><br>";
+                optimize_calendar();
+            });
+        }
+
+        function optimize_calendar(){
+            document.getElementById('data').innerHTML = document.getElementById('data').innerHTML + "Calendar Optimierung:" + "<br>";
+            $.post('optimize_calendar.php',function(data) {
+                document.getElementById('data').innerHTML = document.getElementById('data').innerHTML + data + "<br><br>";
                 linienverlauefe();
             });
         }
