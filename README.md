@@ -11,6 +11,26 @@ At the Moment there are some great Modules
   - A Departuremonitor as a Website for everyone
   - A Departure Display Raspberry PI Software. Use your Raspberry Pi with a Display to create low-budget Departure Indoor Displays.
 
+Setting up the Server
+-----
+For OPTIS you only need a simple default Installation of a Webserver with PHP and MySQL.
+
+The Server should work fast. So we must collect Inforamtions from some MySQL Tables and put them into a new Table where all Information are stored togehther. This improve the speed of the Server.
+The Best Way is, to Create a Cronjob that runs every night, after your PI's get there Data.
+
+Create a Cronjob lik this. Be carefull the Path to your Script can distinguish.
+In this Example the Pi gets the Data automaticly every day at 1 and 13 o'clock. Ok let us run the cronjob every night at 2 o'clock.
+
+You can edit your Crontab with:
+```
+crontab -e
+```
+Now the default Editor opens and you can add the following statement:
+```
+0 2 * * * /usr/bin/php /srv/www/htdocs/gtfs_import/departures.php
+```
+
+
 Install Raspberry PI Departuredisplays
 -----
 The First is the hardest one ;) When the First Display is runnig you can copy the MemoryCard for more Departuredisplays
