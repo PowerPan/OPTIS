@@ -233,7 +233,7 @@ while($row_service=$mysql_service->fetchRow()){
     print_r($faehrt_doch_nicht);
     echo "</td></tr>";
 
-    $mysql_update->query("update gtfs_calendar set monday = ".$faehrt_monday.", tuesday = ".$faehrt_tuesday.", wednesday = ".$faehrt_wednesday.", friday = ".$faehrt_friday.", saturday = ".$faehrt_saturday.", sunday = ".$faehrt_sunday." where service_id = ".$row_service['service_id']."");
+    $mysql_update->query("update gtfs_calendar set monday = ".$faehrt_monday.", tuesday = ".$faehrt_tuesday.", wednesday = ".$faehrt_wednesday.",thursday =".$faehrt_thursday.", friday = ".$faehrt_friday.", saturday = ".$faehrt_saturday.", sunday = ".$faehrt_sunday." where service_id = ".$row_service['service_id']."");
     $mysql_update->query("delete from gtfs_calendar_dates where service_id = ".$row_service['service_id']."");
     foreach ($faehrt_doch as $tag){
         $mysql_update->query("insert into gtfs_calendar_dates (service_id,date,exception_type) values (".$row_service['service_id'].",'".$tag."',1)");

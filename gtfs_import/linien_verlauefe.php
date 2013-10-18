@@ -3,7 +3,7 @@
  * Dieses script findet für alle Linien alle möglichen Linienverläufe und schreibt diese in
  * die MySQL Tabellen.
  */
-include('classMySQL.php');
+include('../classMySQL.php');
 //Erstellen der benötigten MySQL Objekte
 $mysql_route = new MySQL();
 $mysql_trips = new MySQL();

@@ -13,7 +13,7 @@
 */
 header('Content-Type: text/html; charset=iso-8859-1');
 set_time_limit(5000);
-include_once("classMySQL.php");
+include_once("../classMySQL.php");
 $mysql = new MySQL();
 $mysql2 = new MySQL();
 $mysql3 = new MySQL();
