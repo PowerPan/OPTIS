@@ -6,6 +6,7 @@ import struct
 import urllib
 import json
 import MySQLdb
+import os
 from optparse import OptionParser
 
 
@@ -15,9 +16,8 @@ parser.add_option("-s" , "--settings", action="store_true",dest="optSettings", h
 parser.add_option("-n" , "--notifications", action="store_true",dest="optNotifications", help="Notifications auslesen")
 parser.add_option("-r" , "--rows", dest="optRows", help="Rows auf dem Server schreiben",nargs=1,type="int")
 parser.add_option("-f" , "--forecupdate", action="store_true",dest="optForceupdate", help="Forceupdate")
-
-options, arguments = parser.parse_args()
 		
+options, arguments = parser.parse_args()
 
 #Function zum auslesen der MAC Adresse
 def getMac(ifname):
@@ -25,12 +25,21 @@ def getMac(ifname):
 	info = fcntl.ioctl(s.fileno(), 0x8927, struct.pack('256s', ifname[:15]))
 	return ''.join(['%02x:' % ord(char) for char in info[18:24]])[:-1]
 
+#Temp auslesen
+def readTemp():
+	filetemp = open("/sys/class/thermal/thermal_zone0/temp","r")
+	temp = filetemp.read()
+	return temp
+
 #URL zusammenbauen
 def getActionUrl(action):
 	mac = getMac('eth0')
-	url = "http://itract.hs-woe.de/displays/?mac=%s&action=%s" % (mac,action)
+	temp = readTemp()	
+	url = "http://itract.hs-woe.de/displays/?mac=%s&action=%s&temp=%s" % (mac,action,temp)
 	#url = "http://192.168.250.16/swwv/displays/?mac=%s&action=%s" % (mac,action)
+        #print url	
 	return url
+
 
 def getDBCursor():
 	dbconn = MySQLdb.connect(host="localhost",user="root",passwd="i76triku",db="display")
